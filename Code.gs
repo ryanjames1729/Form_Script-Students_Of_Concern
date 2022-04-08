@@ -76,8 +76,11 @@ function myFunction() {
   Logger.log(gradeListCleaned);
   Logger.log(commentList);
 
-  var doc = DocumentApp.create('Students of Concern');
+  // var doc = DocumentApp.create('Students of Concern');
+  var doc = DocumentApp.openById('1vaB_2lEdkW36yNf-4DKEtVtFidsmYhE8KybW_mR-nTk');
   var body = doc.getBody();
+  Logger.log(body);
+  body.clear();
 
   var image = 'https://scontent-atl3-2.xx.fbcdn.net/v/t1.6435-9/36637595_10156687891910362_8033954816449314816_n.png?_nc_cat=111&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=4vjcQ1MctVkAX89ACFQ&_nc_ht=scontent-atl3-2.xx&oh=00_AT833zTwIqTVcNqtmO2qESaTsGz3AJ784OFPU40OyxQVKw&oe=62638593';
   var blob = UrlFetchApp.fetch(image).getBlob();
