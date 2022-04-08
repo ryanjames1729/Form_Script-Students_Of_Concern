@@ -1,35 +1,29 @@
 function myFunction() {
 
+  // Get the data and sort by name and grade level
   var sheet = SpreadsheetApp.getActiveSheet();
   sheet.sort(2).sort(3)
   var data = sheet.getDataRange().getValues();
-  // for (var i = 0; i < data.length; i++) {
-  //   Logger.log('Teacher name: ' + data[i][1]);
-  //   Logger.log('Student name: ' + data[i][2]);
-  //   Logger.log('Concern :' + data[i][4]);
-  // }
 
   var teacherList = [];
   var studentList = [];
   var concernList = [];
   var gradeList = [];
 
+  // Threshold of concerns, if thresh = 2, only students with 2 or more concerns will run in report
   const concernThreshold = 2;
 
+  // Data -> Arrays
   for (var i = 1; i < data.length; i++){
     var teacher = data[i][1].substring(1, data[i][1].indexOf("@"));
     teacher = teacher.charAt(0).toUpperCase() + teacher.slice(1);
-    // teacherList.push(teacher);
-    // studentList.push(data[i][2]);
-    // gradeList.push(data[i][3])
-    // concernList.push(data[i][4]);
     teacherList[i-1] = teacher;
     studentList[i-1] = data[i][2];
     gradeList[i-1] = data[i][3];
     concernList[i-1] = data[i][4];
   }
 
-
+  // Filter out students that don't meet threshold concerns
   var count = 0;
   for (var i = studentList.length; i >= 0; i--) {
     var name = studentList[i];
@@ -57,6 +51,7 @@ function myFunction() {
 
   Logger.log(teacherList + "\n" + studentList + "\n" + concernList);
 
+  // Clean the data -> get rid of duplicates and consolidate the comments
   var studentListCleaned = [];
   var gradeListCleaned = [];
   var commentList = [];
@@ -125,15 +120,9 @@ function myFunction() {
         body.appendParagraph(comment)
         body.appendParagraph("\n\n");
       }
-
-  }
-
-  
+    }
   }
   
   doc.saveAndClose();
-
-  
-
   
 }
